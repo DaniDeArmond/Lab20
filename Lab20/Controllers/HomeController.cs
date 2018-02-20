@@ -13,9 +13,9 @@ namespace Lab20.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult About(string FirstName, string LastName, string Email)
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = $"Welcome {FirstName}";
 
             return View();
         }
@@ -24,6 +24,10 @@ namespace Lab20.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+        public ActionResult Register()
+        {
             return View();
         }
     }
