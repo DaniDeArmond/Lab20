@@ -2,40 +2,20 @@
 @{
     ViewBag.Title = "Register";
 }
-<head>
-    <link href="~/validetta-master/validetta.css" rel="stylesheet" type="text/css" media="screen" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript" src="~/validetta-master/dist/validetta.js"></script>
-</head>
-<body>
+<head><script src="~/Validation.js"></script></head>
     <h2>Register</h2>
 
-    <script>
-        $("#form").validetta({
-            showErrorMessages: true,
-            display: 'bubble',
-            errorTemplateClass: 'validetta-bubble',
-            errorClass: 'validetta-error',
-            validClass: 'validetta-valid',
-            bubblePosition: 'right',
-            bubbleGapLeft: 15,
-            bubbleGapTop: 0,
-            realTime: false,
-            onerror: function (event) {
-                alert('You have errors in your form!')
-            };
-        });
-    </script>
 
-    <form action="/Home/About" onsubmit="return Validetta()" method="post">
+
+    <form action="/Home/About"  method="post">
         First Name: <br />
-        <input type="text" name="FirstName" data-validetta="required, minLength[3], maxLength[20]" placeholder="Grant" />
+        <input type="text" name="FirstName" id="name" placeholder="Grant" />
         <br />Last Name: <br />
-        <input type="text" name="LastName" data-validetta="required, minLength[3], maxLength[20]" placeholder="Chirpus" />
+        <input type="text" name="LastName" id="name" placeholder="Chirpus" />
         <br />Email Address: <br />
-        <input type="email" name="Email" data-validetta="required, email" placeholder="grant@grandcircus.co" />
-        Test:<br />
-        <br /><input type="text" name="Test" data-validetta="(required),(minLength[11])" />
-        <br /><input type="submit" value="Submit" />
+        <input type="text" name="Email" id="email" placeholder="grant@grandcircus.co" />
+        <br /><input type="submit" value="Submit" onclick="return validate()" />
     </form>
-</body>
+
+
+<script src="~/Validation.js"></script>
