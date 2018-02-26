@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Browse";
+}
+<head><link rel="stylesheet" type="text/css" src="~/MyTiles.css" />
+       <link rel="stylesheet" type="text/css" src="~/bootstrap.css" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+<body>
+    <h2>Browse</h2>
+
+    <div class="wrap">
+
+        <!-- Define all of the tiles: -->
+       
+        <div class="box">
+            <div class="boxInner">
+                <img src="~/Images/CoffeeBag.jpg" tooltip="@ViewBag.Item1Description" />
+                <div class="titleBox"><h2>@ViewBag.Item1</h2></div>
+                <div class="tooltip-inner">@ViewBag.Item1Description</div>
+
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxInner">
+                <img src="~/Images/CoffeeBag.jpg" />
+                <div class="titleBox"><h2>@ViewBag.Item2</h2></div>
+                <div class="tooltip-inner">@ViewBag.Item2Description</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxInner">
+                <img src="~/Images/CoffeeBag.jpg" />
+                <div class="titleBox"><h2>@ViewBag.Item3</h2></div>
+                <div class="tooltip-inner">@ViewBag.Item3Description</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxInner">
+                <img src="~/Images/3CupsBear.png" tooltip="@ViewBag.Item4Description" />
+                <div class="titleBox"><h2>@ViewBag.Item4</h2></div>
+                <div class="tooltip-inner">@ViewBag.Item4Description</div>
+            </div>
+        </div>
+        
+
+    </div>
+    <!-- /#wrap -->
+
+
+</body>
