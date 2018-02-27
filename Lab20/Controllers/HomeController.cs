@@ -84,5 +84,42 @@ namespace Lab20.Controllers
             ViewBag.Item4Description = Stock[3].Description.ToString();
             return View();
         }
+
+        public ActionResult AdminTool()
+        {
+            CoffeeShopEntities Coffee = new CoffeeShopEntities();
+            ViewBag.StockItems = Coffee.Items.ToList();
+            return View();
+        }
+
+        public ActionResult EditItem(int ItemID)
+        {
+            CoffeeShopEntities Coffee = new CoffeeShopEntities();
+            ViewBag.ItemInfo = Coffee.Items.Find(ItemID);
+            return View("EditItem",ViewBag.ItemInfo);
+        }
+
+        public ActionResult EditItemByID(int ItemID, string Name, string Description, int Quantity, decimal Price, bool Visibility)
+        {
+            CoffeeShopEntities Coffee = new CoffeeShopEntities();
+            var MyItem = Coffee.Items.Single(t => t.ItemID == ItemID);
+            
+            try
+            {
+                MyItem.Name = Name;
+                MyItem.Description = Description;
+                MyItem.Quantity = Quantity;
+                MyItem.Price = Price;
+                MyItem.Visibility = Visibility;
+
+                Coffee.SaveChanges();
+                ViewBag.Success = true;
+            }
+            catch
+            {
+                ViewBag.Success = false;
+            }
+            return View("AdminTool");
+        }
     }
 }

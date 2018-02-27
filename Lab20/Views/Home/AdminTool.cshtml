@@ -5,18 +5,58 @@
 
 <h2>Inventory Management</h2>
 
+@if (ViewBag.Success == true)
+{
+    <script>
+$(function(){
+     $("#successModal").modal('show'); });
+    </script>
+}
+
 <table class="table-responsive">
     <tr>
         <th>Name</th>
         <th>Description</th>
         <th>Quantity</th>
         <th>Price</th>
+        <th>Visibility</th>
         <th></th>
         <th></th>
     </tr>
-    <tr>
-        <tc></tc>
-    </tr>
+    @foreach (var C in ViewBag.StockItems)
+    {
+        <tr>
+            <td>@C.Name</td>
+            <td>@C.Description</td>
+            <td>@C.Quantity</td>
+            <td>@C.Price</td>
+            <td>@C.Visibility</td>
+            <td><a href="/Home/EditItem?ItemID=@C.ItemID">Edit</a></td>
+            @*<td><a href="/Home/DeleteItem?ItemID=@C.ItemID">Delete</a></td>*@
+        </tr>
+    }
+
 
 </table>
+
+
+@* below is the modal code, should remain hidden until successful save *@
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Success!</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Your changes have been saved! Click 'Okay' to go back to the Admin Page.</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
