@@ -1,6 +1,6 @@
 ﻿@model Lab20.Models.Item
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AddNewItem", "Home")) 
 {
     @Html.AntiForgeryToken()
     

@@ -149,15 +149,43 @@ namespace Lab20.Controllers
         public ActionResult DeleteItem(int ItemID)
         {
             CoffeeShopEntities Coffee = new CoffeeShopEntities();
+            Item MyItem = Coffee.Items.Find(ItemID);
+            ViewBag.MyItem = MyItem;
+            return View("DeleteItem", MyItem);
+        }
+
+        public ActionResult ConfirmDelete(int ItemID)
+        {
+            CoffeeShopEntities Coffee = new CoffeeShopEntities();
+            Item MyItem = Coffee.Items.Find(ItemID);
             Coffee.Items.Remove(Coffee.Items.Find(ItemID));
             Coffee.SaveChanges();
-            return View("AdminTool");
+            ViewBag.StockItems = Coffee.Items.ToList();
+            return View("AdminTool", MyItem);
         }
 
         public ActionResult AddItem()
         {
-
+            CoffeeShopEntities Coffee = new CoffeeShopEntities();
             return View();
+        }
+
+        public ActionResult AddNewItem(string Name, string Description, int Quantity, decimal Price, bool Visibility)
+        {
+            CoffeeShopEntities Coffee = new CoffeeShopEntities();
+            Item NewItem = new Item
+            {
+                Name = Name,
+                Description = Description,
+                Quantity = Quantity,
+                Price = Price,
+                Visibility = Visibility
+            };
+
+            Coffee.Items.Add(NewItem);
+            Coffee.SaveChanges();
+            ViewBag.StockItems = Coffee.Items.ToList();
+            return View("AdminTool");
         }
     }
 }
