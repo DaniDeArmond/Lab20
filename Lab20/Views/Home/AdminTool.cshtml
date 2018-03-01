@@ -5,13 +5,23 @@
 
 <h2>Inventory Management</h2>
 
-@if (ViewBag.Success == true)
+@if (ViewBag.ModalUsage == true)
 {
-    <script>
-$(function(){
-     $("#successModal").modal('show'); });
+    <script type="text/javascript">
+        successModal(); 
     </script>
 }
+
+
+
+
+@*@ViewBag.ModalUsage = false;*@
+
+<form action="/Home/AddItem">
+    <h3>Add New Item: <input type="button" class="btn-lg" name="AddItem" value="Click to Add!" /></h3>
+</form>
+
+<br />
 
 <table class="table-responsive">
     <tr>
@@ -23,7 +33,7 @@ $(function(){
         <th></th>
         <th></th>
     </tr>
-    @foreach (var C in ViewBag.StockItems)
+    @foreach (var C in @ViewBag.StockItems)
     {
         <tr>
             <td>@C.Name</td>
@@ -32,7 +42,7 @@ $(function(){
             <td>@C.Price</td>
             <td>@C.Visibility</td>
             <td><a href="/Home/EditItem?ItemID=@C.ItemID">Edit</a></td>
-            @*<td><a href="/Home/DeleteItem?ItemID=@C.ItemID">Delete</a></td>*@
+            <td><a href="/Home/DeleteItem?ItemID=@C.ItemID">Delete</a></td>
         </tr>
     }
 
@@ -59,4 +69,8 @@ $(function(){
     </div>
 </div>
 
-
+<script>
+    function successModal(){
+        $("#successModal").modal('show');
+    };
+</script>

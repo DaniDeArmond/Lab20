@@ -9,6 +9,7 @@ namespace Lab20.Controllers
 {
     public class HomeController : Controller
     {
+        bool ModalUsage = false;
         public ActionResult Index()
         {
             return View();
@@ -88,7 +89,20 @@ namespace Lab20.Controllers
         public ActionResult AdminTool()
         {
             CoffeeShopEntities Coffee = new CoffeeShopEntities();
+            ViewBag.ModalUsage = ModalUsage;
             ViewBag.StockItems = Coffee.Items.ToList();
+
+            if (TempData["ModalUsage"]==null)
+            {
+                TempData["ModalUsage"] = false;
+                ModalUsage = (bool)TempData["ModalUsage"];
+            }
+            else
+            {
+                ModalUsage = (bool)TempData["ModalUsage"];
+            }
+
+
             return View();
         }
 
@@ -96,12 +110,14 @@ namespace Lab20.Controllers
         {
             CoffeeShopEntities Coffee = new CoffeeShopEntities();
             ViewBag.ItemInfo = Coffee.Items.Find(ItemID);
+            TempData["ItemID"] = ItemID;
             return View("EditItem",ViewBag.ItemInfo);
         }
 
-        public ActionResult EditItemByID(int ItemID, string Name, string Description, int Quantity, decimal Price, bool Visibility)
+        public ActionResult EditItemByID(string Name, string Description, int Quantity, decimal Price, bool Visibility)
         {
             CoffeeShopEntities Coffee = new CoffeeShopEntities();
+            int ItemID = (int)TempData["ItemID"];
             var MyItem = Coffee.Items.Single(t => t.ItemID == ItemID);
             
             try
@@ -113,13 +129,35 @@ namespace Lab20.Controllers
                 MyItem.Visibility = Visibility;
 
                 Coffee.SaveChanges();
-                ViewBag.Success = true;
+                ModalUsage = true;
+                TempData["ModalUsage"] = ModalUsage;
+                ViewBag.ModalUsage = TempData["ModalUsage"];
+
             }
             catch
             {
-                ViewBag.Success = false;
+                Exception e = new Exception("Had some issues with the database");
+                TempData["ModalUsage"] = false;
+                TempData["ModalUsage"] = ModalUsage;
+                ViewBag.ModalUsage = TempData["ModalUsage"];
             }
+            TempData["ItemID"] = ItemID;
+            ViewBag.StockItems = Coffee.Items.ToList();
             return View("AdminTool");
+        }
+
+        public ActionResult DeleteItem(int ItemID)
+        {
+            CoffeeShopEntities Coffee = new CoffeeShopEntities();
+            Coffee.Items.Remove(Coffee.Items.Find(ItemID));
+            Coffee.SaveChanges();
+            return View("AdminTool");
+        }
+
+        public ActionResult AddItem()
+        {
+
+            return View();
         }
     }
 }
